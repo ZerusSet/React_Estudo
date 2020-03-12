@@ -43,13 +43,30 @@ export const Owner = styled.header`
 `;
 
 export const IssueList = styled.ul`
-    padding-top: 30px;
-    margin-top: 30px;
+    margin-top: 15px;
     border-top: 1px solid #eee;
     list-style: none;
 
     .barraPesquisa {
-        text-align: center;
+        padding: 15px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h3 {
+            margin-bottom: 5px;
+        }
+
+        button {
+            width: 75px;
+            margin: 0 5px;
+            height: 30px;
+            color: white;
+            border: 1px solid #7159c1;
+            background: #7159c1;
+            border-radius: 4px;
+        }
     }
 
     li {
@@ -96,6 +113,13 @@ export const IssueList = styled.ul`
                 height: 20px;
                 padding: 3px 4px;
                 margin-left: 10px;
+            }
+
+            .issueState {
+                text-transform: uppercase;
+                border: 1px solid #eee;
+                color: #eee;
+                background: #7159c1;
             }
         }
 

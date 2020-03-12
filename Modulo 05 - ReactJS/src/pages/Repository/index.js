@@ -19,9 +19,14 @@ export default class Repository extends Component {
         repository: {},
         issues: [],
         loading: true,
+        filtroEstado: 'open',
     };
 
     async componentDidMount() {
+        this.filtroEstado('open');
+    }
+
+    async filtroEstado(estado) {
         const { match } = this.props;
 
         const repoName = decodeURIComponent(match.params.repository);
@@ -31,7 +36,7 @@ export default class Repository extends Component {
             api.get(`/repos/${repoName}/issues`, {
                 /* Trazer apenas uma quantia de informações */
                 params: {
-                    state: 'open',
+                    state: estado,
                     per_page: 5,
                 },
             }),
@@ -63,12 +68,33 @@ export default class Repository extends Component {
                     <p>{repository.description}</p>
                 </Owner>
 
-                <IssueList>
+                <IssueList onSubmit={this.handleSearch}>
                     <div className="barraPesquisa">
-                        Teste de barra de pesquisa
+                        <h3>Filtros de Estado</h3>
+                        <div>
+                            <button
+                                type="button"
+                                onClick={() => this.filtroEstado('open')}
+                            >
+                                OPEN
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => this.filtroEstado('closed')}
+                            >
+                                CLOSED
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => this.filtroEstado('all')}
+                            >
+                                ALL
+                            </button>
+                        </div>
                     </div>
+
                     {issues.map(issue => (
-                        <li key={String(issue.isRequired)}>
+                        <li>
                             <img
                                 src={issue.user.avatar_url}
                                 alt={issue.user.login}
@@ -81,9 +107,11 @@ export default class Repository extends Component {
                                             {label.name}
                                         </span>
                                     ))}
+                                    <span className="issueState">
+                                        {issue.state}
+                                    </span>
                                 </strong>
                                 <p>{issue.user.login}</p>
-                                <p>{issue.state}</p>
                             </div>
                         </li>
                     ))}

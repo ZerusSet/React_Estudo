@@ -38,5 +38,6 @@ module.exports = {
       'no-unreachable': 'off',
       'consistent-return': 'off',
       'no-unused-expressions': 'off',
+      'class-methods-use-this': 'off',
   },
 };
